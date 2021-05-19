@@ -1,110 +1,108 @@
 {
-  "openapi": "3.0.0",
-  "info": {
-    "title": "Raspberry Pi Display API",
-    "contact": {
-      "name": "Laura",
-      "url": "https://contact.lauka.app"
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Raspberry Pi Display API",
+        "contact": {
+            "name": "Laura",
+            "url": "https://contact.lauka.app"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0.0"
     },
-    "license": {
-      "name": "Apache 2.0",
-      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
-    },
-    "version": "1.0.0"
-  },
-  "servers": [
-    {
-      "url": "https://a-pi.lauka.app/api/"
-    }
-  ],
-  "tags": [
-    {
-      "name": "text",
-      "description": "Operations to manipulate raspberry pi text"
-    }
-  ],
-  "paths": {
-    "/text": {
-      "get": {
-        "tags": [
-          "text"
-        ],
-        "summary": "displays the currently set text",
-        "responses": {
-          "200": {
-            "description": "the currently set text",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Text"
+    "servers": [
+        {
+            "url": "https://a-pi.lauka.app/api/"
+        }
+    ],
+    "tags": [
+        {
+            "name": "text",
+            "description": "Operations to display text on my Raspberry Pi Zero WH"
+        }
+    ],
+    "paths": {
+        "/text": {
+            "post": {
+                "tags": [
+                    "text"
+                ],
+                "summary": "sets the text to be displayed",
+                "description": "Adds an item to the system",
+                "requestBody": {
+                    "description": "text to add",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Text"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "text has been set",
+                        "schema": {
+                            "$ref": "#/components/schemas/Status"
+                        }
+                    },
+                    "400": {
+                        "description": "invalid input, object invalid"
+                    },
+                    "429": {
+                        "description": "rate limited: too many requests"
+                    }
                 }
-              }
+            },
+            "get": {
+                "tags": [
+                    "text"
+                ],
+                "summary": "displays the currently set text",
+                "responses": {
+                    "200": {
+                        "description": "the currently set text",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Text"
+                                }
+                            }
+                        }
+                    }
+                },
+                "deprecated": true
             }
-          }
-        },
-        "deprecated": true
-      },
-      "post": {
-        "tags": [
-          "text"
-        ],
-        "summary": "sets the text to be displayed",
-        "description": "Adds an item to the system",
-        "requestBody": {
-          "description": "text to add",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Text"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "text has been set",
-            "schema": {
-                "$ref": "#/components/schemas/Status"
-            }
-          },
-          "400": {
-            "description": "invalid input, object invalid"
-          },
-          "429": {
-            "description": "rate limited: too many requests"
-          }
         }
-      }
+    },
+    "components": {
+        "schemas": {
+            "Text": {
+                "required": [
+                    "text"
+                ],
+                "type": "object",
+                "properties": {
+                    "text": {
+                        "type": "string",
+                        "format": "text",
+                        "example": "Lorem ipsum dolor sit amet"
+                    }
+                }
+            },
+            "Status": {
+                "required": [],
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "format": "text",
+                        "example": "success"
+                    }
+                }
+            }
+        }
     }
-  },
-  "components": {
-    "schemas": {
-      "Text": {
-        "required": [
-          "text"
-        ],
-        "type": "object",
-        "properties": {
-          "text": {
-            "type": "string",
-            "format": "text",
-            "example": "Lorem ipsum dolor sit amet"
-          }
-        }
-      },
-      "Status": {
-        "required": [
-          "status"
-        ],
-        "type": "object",
-        "properties": {
-          "text": {
-            "type": "string",
-            "format": "text",
-            "example": "success"
-          }
-        }
-      }
-    }
-  }
 }
