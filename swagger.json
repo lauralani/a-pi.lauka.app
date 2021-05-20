@@ -33,6 +33,7 @@
                 "description": "Adds an item to the system",
                 "requestBody": {
                     "description": "text to add",
+                    "required": true,
                     "content": {
                         "application/json": {
                             "schema": {

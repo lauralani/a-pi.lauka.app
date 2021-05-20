@@ -26,19 +26,20 @@ namespace Lauka.pi
             try
             {
                 text = JsonConvert.DeserializeObject<TextRequest>(request);
+                Console.WriteLine(text.Text);
             }
             catch
             {
-                return new BadRequestResult();
+                return new BadRequestObjectResult("bad body");
             }
 
-            Dictionary<string, Object> restbody = new Dictionary<string, Object>()
+            Dictionary<string, object> restbody = new Dictionary<string, object>()
             {
                 {"text", text.Text},
                 {"fontsize", fontsize}
             };
 
-            var restclient = new RestClient("https://a-pi-backend.lauka.app/text");
+            RestClient restclient = new RestClient("https://a-pi-backend.lauka.app/text");
             restclient.Timeout = -1;
             RestRequest restrequest = new RestRequest(Method.POST);
             restrequest.AddHeader("x-api-key", Environment.GetEnvironmentVariable("APP_BACKEND_APIKEY"));
