@@ -32,7 +32,8 @@
                 "summary": "sets the text to be displayed",
                 "description": "Adds an item to the system",
                 "requestBody": {
-                    "description": "text to add",
+                    "description": "the text you want to add\n\nnewlines can be added with \\n\n\ntext can be shown with a max of five lines and a max of 18 (or up to 23, depending on the letter) characters per line",
+                    
                     "required": true,
                     "content": {
                         "application/json": {
